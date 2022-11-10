@@ -1,0 +1,135 @@
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        int vec_size = nums.size();
+        int sum,x,y,z;
+        vector<vector<int>> out,trp_vec,trp_vec_dup;
+        vector<int> index;
+        vector<int> emp = {};
+        int h=0;
+        sum = accumulate(nums.begin(), nums.end(), 0); //Sums up the values of the vector
+        //cout << "value of sum: "<< sum <<endl;
+        
+        map<int, int> num_map;
+        map<int, vector<int>> trp_vec_map, vec_map;
+        int m_idx = 0;
+        int m_vec_indx =0;
+  
+         if ((vec_size== 3) && sum !=0) 
+        {
+            out = {};
+             return out;
+        }
+    
+            else if ((vec_size== 3) && sum ==0)
+        {
+            out = {{nums[0],nums[1], nums[2]}};
+            return out;
+        }
+        
+        else{
+            sort(nums.begin(), nums.end()); //Sorts the vector in ascending order
+            //nums.erase(unique(nums.begin(), nums.end()),nums.end());
+            //cout << "Vector is : ";
+            for (auto it = nums.begin(); it != nums.end(); it++){
+                cout << *it << " "<<endl;
+                num_map.insert(pair<int, int>(m_idx, *it)); //cost of insertion to a map log(n) or O(1)
+                m_idx++;
+            }
+                
+    /*map<int, int>::iterator itr;
+    cout << "\nThe map num_map is : \n";
+    cout << "\tKEY\tELEMENT\n";
+    for (itr = num_map.begin(); itr != num_map.end(); ++itr) {
+        cout << '\t' << itr->first << '\t' << itr->second
+             << '\n';
+    }
+    cout << endl;*/
+            
+            int a=0;
+            
+            for (int i = 0; i<vec_size; i++){
+                x = num_map[i];
+                //cout<<endl<<"x:"<<x;
+                for (int j = i+1; j<vec_size;j++){
+                    y = num_map[j];
+                     //cout<<" y:"<<y;
+                    for(int k= j+1; k<vec_size;k++){
+                        z= -x-y;
+                         //cout<<" z and k:"<<z <<" "<<k<<endl;
+                        if (z == num_map[k]) {
+                             //cout<<"4th";
+                            //cout<<"x y z: " << x<<y<<z<<endl;
+                            //trp_vec.push_back({x,y,z});
+                            trp_vec_map.insert (pair<int, vector<int>>(a,{x,y,z}) );
+                            a++;
+                        }
+                    }
+                }
+            } 
+        }
+        
+//       trp_vec_dup = trp_vec;
+        int ii;
+        int jj;
+       int trp_vec_size = trp_vec_map.size();
+        //Next step is to filter out the duplicate vectors
+        for (ii = 0;ii<trp_vec_size;ii++){
+           // cout<<"indx i:"<<i<<endl;
+            jj =ii;
+            while (jj<trp_vec_size-1){
+                jj = jj+1;
+                if(trp_vec_map[ii] ==trp_vec_map[jj]) {
+                    //cout<<"Index: "<<jj<<endl;
+                index.push_back(jj);
+                }
+                 
+            } 
+        }
+        
+        //store the elements of trp_vec into a map to allow for easy deletion
+    /*  for (auto it_vec_map = trp_vec.begin(); it_vec_map != trp_vec.end(); it_vec_map++){
+                //cout <<"Iterating vec" << *it_vec_map << " "<<endl;
+          //cout<<"m_vec_indx"<<m_vec_indx;
+              vec_map.insert(pair<int, vector<int>>(m_vec_indx, *it_vec_map));
+                m_vec_indx++;
+            } */
+        
+        
+sort(index.begin(), index.end()); //Sorts the vector in ascending order
+index.erase(unique(index.begin(), index.end()),index.end());
+        
+        vector<int>::iterator it_indx;
+        for (it_indx=index.begin(); it_indx!=index.end(); ++it_indx){
+                //cout << ' ' << *it_indx;
+            trp_vec_map.erase(*it_indx);
+            //trp_vec.erase(index[*it_indx]);
+        }
+         
+            //map<int, vector<int>>::iterator itr;
+        for (h =0;h<trp_vec_map.size();h++){
+            if (trp_vec_map[h] != emp)
+                    trp_vec_dup.push_back(trp_vec_map[h]);
+        }
+    /*for (itr = vec_map.begin(); itr != vec_map.end(); ++itr) {
+        trp_vec_dup.push_back(vec_map[h]);
+        h++;
+    }*/
+
+
+        
+        //if(trp_vec[1] == trp_vec[2]) cout<<"oh yeah";
+        //myVec.erase(unique(trp_vec.begin(), trp_vec.end()), myVec.end());
+        //cout<<"Initial size:"<<trp_vec.size();
+        //unique(trp_vec.begin(), trp_vec.end());
+        //cout<<"Final size:"<<trp_vec[0].size();
+        
+        
+        
+        
+        //vector<vector<int>> out2 = {{-1,-1,2},{-1,0,1}};
+        //return out2;
+        return trp_vec_dup;
+        
+    }
+};

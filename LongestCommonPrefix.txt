@@ -1,0 +1,16 @@
+class Solution(object):
+    def longestCommonPrefix(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        """
+        strs.sort(); #Sorts the list so that words with lowest number of letters comes first
+        pref = [] #Defines an empty list to store the characters of the prefix
+        first_word = strs[0] #Assigns the first word
+        if (len(strs) == 1): return strs[len(strs)-1] #returns the only word in a list
+        for i in range (len(first_word)):
+            pref.insert(i, strs[0][i])
+            for j in range (1, len(strs)):
+                if (((pref[i] != strs[j][i]) or (i==len(strs[j])))):
+                    return strs[0][0:i]
+        return(first_word)
