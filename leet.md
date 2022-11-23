@@ -1,6 +1,6 @@
 ---
 Title: 'load_dataset()'
-Description: 'Loads a sample dataset (in CSV format) from this online [repository](https://github.com/mwaskom/seaborn-data).'
+Description: 'Loads a sample dataset (in CSV format) from this online repository https://github.com/mwaskom/seaborn-data .'
 Subjects:
   - 'Data Science'
   - 'Data Visualization'
